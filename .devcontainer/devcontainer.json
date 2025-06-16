@@ -1,4 +1,4 @@
 {   
     "name": "ChatBot Seguranca Digital - Development Environment",
-    "image": "mcr.microsoft.com/devcontainers/python" 
+    "image": "mcr.microsoft.com/devcontainers/python:3" 
 }
