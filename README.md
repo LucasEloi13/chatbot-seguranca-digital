@@ -115,29 +115,6 @@ Para adicionar novas funcionalidades:
 - **requests**: Comunicação com API REST
 - **python-dotenv**: Gerenciamento de variáveis de ambiente
 
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Por favor:
-
-1. Fork o projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
-
-## 🆘 Suporte
-
-Para dúvidas ou problemas:
-
-1. Verifique se a API key está configurada corretamente
-2. Confirme se todas as dependências estão instaladas  
-3. Teste a conectividade com a internet
-4. Consulte os logs de erro no terminal
-
 ---
 
 **⚠️ Aviso**: Este assistente oferece orientações gerais sobre segurança digital. Para situações específicas ou urgentes, consulte um especialista em tecnologia.
