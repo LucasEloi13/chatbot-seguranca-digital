@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ Assistente de Segurança Digital</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .welcome-section {
+            background: #e8f5e8;
+            padding: 30px;
+            text-align: center;
+            border-bottom: 3px solid #27ae60;
+        }
+
+        .welcome-section h2 {
+            color: #27ae60;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .welcome-section p {
+            font-size: 1.3rem;
+            color: #2c5e2c;
+            line-height: 1.6;
+        }
+
+        .suggestions-section {
+            padding: 30px;
+        }
+
+        .suggestions-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .suggestions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .suggestion-btn {
+            background: #f8f9fa;
+            border: 2px solid #3498db;
+            color: #3498db;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .suggestion-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .chat-section {
+            padding: 30px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .chat-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px solid #ecf0f1;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: #3498db;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .assistant-message {
+            background: #27ae60;
+            color: white;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 20px;
+            font-size: 1.2rem;
+            border: 2px solid #bdc3c7;
+            border-radius: 15px;
+            outline: none;
+        }
+
+        .message-input:focus {
+            border-color: #3498db;
+        }
+
+        .send-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .send-btn:hover {
+            background: #219653;
+        }
+
+        .send-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .clear-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .clear-btn:hover {
+            background: #c0392b;
+        }
+
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .footer {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .suggestions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .input-section {
+                flex-direction: column;
+            }
+            
+            .message {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ Assistente de Segurança Digital</h1>
+            <p>Seu guia pessoal para navegar com segurança na internet</p>
+        </div>
+
+        <div class="welcome-section" id="welcomeSection">
+            <h2>👋 Olá! Bem-vindo(a)!</h2>
+            <p>
+                Sou seu assistente pessoal de segurança digital!<br>
+                Estou aqui para ajudá-lo(a) a navegar com segurança na internet.
+            </p>
+        </div>
+
+        <div class="suggestions-section" id="suggestionsSection">
+            <h3 class="suggestions-title">💡 Perguntas Frequentes</h3>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 1.1rem;">
+                <em>Clique em uma pergunta para começar:</em>
+            </p>
+            <div class="suggestions-grid" id="suggestionsGrid">
+                <!-- Sugestões serão carregadas via JavaScript -->
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <div class="chat-container" id="chatContainer">
+                <!-- Mensagens aparecerão aqui -->
+            </div>
+
+            <div class="input-section">
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    class="message-input" 
+                    placeholder="Digite sua pergunta sobre segurança digital..."
+                    onkeypress="handleKeyPress(event)"
+                >
+                <button id="sendBtn" class="send-btn" onclick="sendMessage()">
+                    Enviar 📤
+                </button>
+            </div>
+
+            <div class="controls">
+                <button class="clear-btn" onclick="clearChat()">
+                    🔄 Nova Conversa
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>💙 Desenvolvido com carinho para o público idoso</p>
+            <p>🛡️ Sua segurança digital é nossa prioridade</p>
+            <p><small>⚠️ Este assistente oferece orientações gerais. Para situações urgentes, procure ajuda especializada.</small></p>
+        </div>
+    </div>
+
+    <script>
+        let isLoading = false;
+
+        // Carrega sugestões ao inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSuggestions();
+        });
+
+        async function loadSuggestions() {
+            try {
+                const response = await fetch('/suggestions');
+                const data = await response.json();
+                
+                const grid = document.getElementById('suggestionsGrid');
+                grid.innerHTML = '';
+                
+                data.suggestions.forEach(suggestion => {
+                    const btn = document.createElement('button');
+                    btn.className = 'suggestion-btn';
+                    btn.textContent = suggestion;
+                    btn.onclick = () => askSuggestion(suggestion);
+                    grid.appendChild(btn);
+                });
+            } catch (error) {
+                console.error('Erro ao carregar sugestões:', error);
+            }
+        }
+
+        function askSuggestion(question) {
+            document.getElementById('messageInput').value = question;
+            sendMessage();
+            hideWelcomeSection();
+        }
+
+        function hideWelcomeSection() {
+            document.getElementById('welcomeSection').style.display = 'none';
+            document.getElementById('suggestionsSection').style.display = 'none';
+        }
+
+        async function sendMessage() {
+            if (isLoading) return;
+
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            hideWelcomeSection();
+            
+            // Adiciona mensagem do usuário
+            addMessage(message, 'user');
+            input.value = '';
+            
+            // Mostra loading
+            setLoading(true);
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                const data = await response.json();
+                
+                if (data.response) {
+                    addMessage(data.response, 'assistant');
+                } else {
+                    addMessage('Desculpe, ocorreu um erro. Tente novamente.', 'assistant');
+                }
+                
+            } catch (error) {
+                console.error('Erro:', error);
+                addMessage('Erro de conexão. Verifique sua internet e tente novamente.', 'assistant');
+            }
+            
+            setLoading(false);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.textContent = text;
+            
+            container.appendChild(messageDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function setLoading(loading) {
+            isLoading = loading;
+            const sendBtn = document.getElementById('sendBtn');
+            const input = document.getElementById('messageInput');
+            
+            if (loading) {
+                sendBtn.disabled = true;
+                sendBtn.textContent = 'Enviando...';
+                input.disabled = true;
+                
+                const container = document.getElementById('chatContainer');
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'loading';
+                loadingDiv.id = 'loadingMessage';
+                loadingDiv.textContent = '🤔 Pensando na melhor resposta...';
+                container.appendChild(loadingDiv);
+                container.scrollTop = container.scrollHeight;
+            } else {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Enviar 📤';
+                input.disabled = false;
+                
+                const loadingMsg = document.getElementById('loadingMessage');
+                if (loadingMsg) {
+                    loadingMsg.remove();
+                }
+                
+                input.focus();
+            }
+        }
+
+        async function clearChat() {
+            try {
+                await fetch('/clear', { method: 'POST' });
+                document.getElementById('chatContainer').innerHTML = '';
+                document.getElementById('welcomeSection').style.display = 'block';
+                document.getElementById('suggestionsSection').style.display = 'block';
+            } catch (error) {
+                console.error('Erro ao limpar chat:', error);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !isLoading) {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

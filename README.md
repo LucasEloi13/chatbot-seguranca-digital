@@ -14,27 +14,41 @@ Um assistente virtual especializado em segurança da informação, desenvolvido 
 
 ```
 chatbot-seguranca-digital/
-├── app.py                 # Arquivo principal da aplicação
-├── src/                   # Módulos organizados
-│   ├── __init__.py       # Inicialização do pacote
-│   ├── config.py         # Configurações centralizadas
+├── app.py                    # Versão Gradio original
+├── app_streamlit.py         # Versão Streamlit (deploy fácil)
+├── app_flask.py            # Versão Flask (mais flexível)
+├── src/                    # Módulos organizados
+│   ├── __init__.py        # Inicialização do pacote
+│   ├── config.py          # Configurações centralizadas
 │   ├── deepseek_client.py # Cliente da API DeepSeek
-│   ├── chatbot.py        # Lógica do chatbot
-│   └── interface.py      # Interface Gradio
-├── requirements.txt       # Dependências Python
-├── .env.example          # Exemplo de variáveis de ambiente
-└── README.md             # Este arquivo
+│   ├── chatbot.py         # Lógica do chatbot
+│   └── interface.py       # Interface Gradio
+├── templates/             # Templates HTML (Flask)
+│   └── index.html        # Interface web responsiva
+├── .streamlit/           # Configuração Streamlit
+│   └── config.toml       # Tema e configurações
+├── requirements*.txt     # Dependências por versão
+├── Procfile             # Deploy Heroku/Render
+├── runtime.txt          # Versão Python
+├── DEPLOY.md           # Guia completo de deploy
+└── README.md           # Este arquivo
 ```
 
 ## 🚀 Como Executar
 
-### 1. Instalar Dependências
+### Desenvolvimento Local
+
+#### 1. Instalar Dependências
 
 ```bash
-pip install -r requirements.txt
+# Para versão Streamlit (recomendada)
+pip install -r requirements-streamlit.txt
+
+# Para versão Flask
+pip install -r requirements-flask.txt
 ```
 
-### 2. Configurar Variáveis de Ambiente
+#### 2. Configurar Variáveis de Ambiente
 
 ```bash
 # Copie o arquivo de exemplo
@@ -44,13 +58,31 @@ cp .env.example .env
 DEEPL_API_KEY=sua_api_key_aqui
 ```
 
-### 3. Executar a Aplicação
+#### 3. Executar a Aplicação
 
 ```bash
+# Versão Streamlit (interface mais simples para idosos)
+streamlit run app_streamlit.py
+
+# Versão Flask (mais customizável)
+python app_flask.py
+
+# Versão Gradio original
 python app.py
 ```
 
-A interface será aberta automaticamente no navegador em `http://localhost:7860`
+### 🌐 Deploy Gratuito
+
+**Opções disponíveis:**
+
+1. **[Streamlit Cloud](https://share.streamlit.io)** - Mais fácil (Recomendado)
+2. **[Render](https://render.com)** - Flask, mais flexível  
+3. **[Railway](https://railway.app)** - Deploy rápido
+4. **[Hugging Face Spaces](https://huggingface.co/spaces)** - Ideal para IA
+
+**📋 Veja o guia completo:** [`DEPLOY.md`](DEPLOY.md)
+
+A interface será aberta automaticamente no navegador em `http://localhost:8501` (Streamlit) ou `http://localhost:5000` (Flask)
 
 ## 🔧 Configurações
 
